@@ -1,5 +1,16 @@
 # Windows Service Manager
 
+> [!CAUTION]
+> **⚠️ AI-GENERATED CODE - RESEARCH PROJECT**
+>
+> **Every line of code in this repository was written by AI using Claude Sonnet 4.5 and Cline.**
+>
+> This repository serves as a research and proof-of-concept project to investigate what can be achieved with AI-assisted software development. While the code follows best practices and includes comprehensive testing, it should be thoroughly reviewed and tested before use in production environments.
+>
+> **Use at your own risk. This is an experimental AI research project.**
+
+---
+
 A modern, user-friendly WPF application for managing Windows services with administrative privileges and safety features.
 
 ## 🌟 Features
@@ -7,7 +18,7 @@ A modern, user-friendly WPF application for managing Windows services with admin
 - **Service Management**: View, start, stop, restart, pause, and resume Windows services
 - **Real-time Status**: Monitor service status with automatic refresh capabilities
 - **Search & Filter**: Quickly find services using the built-in search functionality
-- **Safety Features**: 
+- **Safety Features**:
   - Critical service warnings before making changes
   - Administrator privilege detection and enforcement
   - Confirmation dialogs for system-critical operations
@@ -36,17 +47,20 @@ A modern, user-friendly WPF application for managing Windows services with admin
 ### From Source
 
 1. Clone the repository:
+
    ```powershell
    git clone https://github.com/raandree/AiCSharpTest.git
    cd AiCSharpTest
    ```
 
 2. Build the solution:
+
    ```powershell
    dotnet build WindowsServiceManager.sln --configuration Release
    ```
 
 3. Run the application:
+
    ```powershell
    .\WindowsServiceManager\bin\Release\net8.0-windows\WindowsServiceManager.exe
    ```
@@ -168,6 +182,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 ## 📧 Support
 
 For issues, questions, or suggestions:
+
 - Open an issue on [GitHub Issues](../../issues)
 - Contact the maintainers
 
