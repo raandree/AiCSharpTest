@@ -18,7 +18,22 @@ public partial class MainWindow : Window
         DataContext = _viewModel;
         
         // Load services after window is loaded
-        Loaded += async (sender, args) => await _viewModel.InitializeAsync();
+        Loaded += async (sender, args) =>
+        {
+            try
+            {
+                await _viewModel.InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Failed to load services:\n\n{ex.Message}\n\n{ex.StackTrace}",
+                    "Error Loading Services",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        };
     }
 
     private async void StartupType_SelectionChanged(object sender, SelectionChangedEventArgs e)

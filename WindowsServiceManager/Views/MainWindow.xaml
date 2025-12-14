@@ -10,6 +10,7 @@
     <Window.Resources>
         <converters:StatusToColorConverter x:Key="StatusToColorConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </Window.Resources>
     
     <Grid>
@@ -24,7 +25,7 @@
         <Border Grid.Row="0" 
                 Background="#FFEB3B" 
                 Padding="10"
-                Visibility="{Binding IsAdministrator, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+                Visibility="{Binding IsAdministrator, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <TextBlock Text="⚠ Not running as administrator. Service operations will be limited." 
                        FontWeight="Bold"
                        Foreground="Black"/>
