@@ -103,6 +103,7 @@ public interface IServiceRepository
     Task<ServiceOperationResult> RestartServiceAsync(string serviceName);
     Task<ServiceOperationResult> PauseServiceAsync(string serviceName);
     Task<ServiceOperationResult> ResumeServiceAsync(string serviceName);
+    Task<ServiceOperationResult> ChangeStartupTypeAsync(string serviceName, ServiceStartMode startupType);
 }
 
 // Services/WindowsServiceRepository.cs

@@ -59,6 +59,15 @@ A modern, intuitive Windows desktop application that makes service management ac
   - Progress indicators for long-running operations
   - Clear error messages for permission issues
 
+#### 3.5. Service Configuration
+- **What**: Change service startup type (Automatic, Manual, Disabled)
+- **Why**: Users need to configure when services start without using services.msc
+- **How**:
+  - Dropdown/ComboBox in details panel for startup type
+  - Real-time validation and permission checking
+  - Confirmation for changes to system-critical services
+  - Apply button or immediate save on change
+
 #### 4. Real-time Status Updates
 - **What**: Live service status monitoring
 - **Why**: Users need to see immediate feedback from their actions
@@ -135,6 +144,16 @@ A modern, intuitive Windows desktop application that makes service management ac
 4. Monitors status changes in real-time
 
 **Target Time**: < 30 seconds for 3-5 services
+
+### Workflow 4: Change Service Startup Type
+1. User searches for specific service
+2. Selects service from list
+3. Views current startup type in details panel
+4. Changes startup type via dropdown (e.g., Manual → Automatic)
+5. Confirms change if system-critical
+6. Sees updated configuration immediately
+
+**Target Time**: < 15 seconds
 
 ## Design Principles
 

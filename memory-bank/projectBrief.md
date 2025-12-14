@@ -14,6 +14,7 @@ A C# desktop application that provides a user-friendly interface for managing lo
 ### Functional Requirements
 - **Service Discovery**: List all Windows services available on the local machine
 - **Service Control**: Start, stop, restart, pause, and resume services
+- **Service Configuration**: Edit service startup type (Automatic, Manual, Disabled)
 - **Service Information**: Display detailed service properties (status, startup type, description, dependencies)
 - **Search/Filter**: Allow users to quickly find services by name or status
 - **Refresh**: Update service list and status on-demand
@@ -37,7 +38,6 @@ A C# desktop application that provides a user-friendly interface for managing lo
 ## Out of Scope (Phase 1)
 - Remote service management
 - Service installation/uninstallation
-- Service configuration editing (startup type changes)
 - Event log viewing
 - Scheduled service operations
 

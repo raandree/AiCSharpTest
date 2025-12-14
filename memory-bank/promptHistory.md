@@ -30,6 +30,35 @@ This file tracks all user prompts and interactions to maintain context across se
 
 ---
 
+### 17:27 - Scope Addition: Service Configuration Editing
+**User**: Please add "- Service configuration editing (startup type changes)" to the scope of the project
+
+**Context**: Memory Bank initialization was just completed, user requested adding configuration editing capability
+**Action Taken**: Updated Memory Bank files to include service startup type configuration as a Phase 1 feature
+**Files Modified**:
+- memory-bank/projectBrief.md - Added to Functional Requirements, removed from Out of Scope
+- memory-bank/productContext.md - Added configuration feature section and workflow
+- memory-bank/systemPatterns.md - Added ChangeStartupTypeAsync() method to IServiceRepository
+- memory-bank/activeContext.md - Documented scope change in Recent Activities and Key Requirements
+- memory-bank/promptHistory.md - This entry
+
+**Key Decisions Made**:
+1. Service configuration (startup type changes) moved from "Out of Scope" to Phase 1
+2. Will support changing startup type: Automatic, Manual, Disabled
+3. Configuration UI: Dropdown/ComboBox in service details panel
+4. Safety: Confirmation dialogs for system-critical service configuration changes
+5. Implementation: ChangeStartupTypeAsync() method in repository and service layers
+
+**Impact**:
+- Additional repository method required
+- UI needs startup type dropdown control
+- Validation logic for configuration changes needed
+- Affects Phase 3 (Data Layer) and Phase 6 (View Layer)
+
+**Status**: Memory Bank fully updated with expanded scope, ready to begin Phase 1 implementation
+
+---
+
 ## Template for Future Entries
 
 ### [Date] [Time] - [Brief Description]

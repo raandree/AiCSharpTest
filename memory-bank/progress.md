@@ -55,6 +55,7 @@
     - [ ] RestartServiceAsync()
     - [ ] PauseServiceAsync()
     - [ ] ResumeServiceAsync()
+    - [ ] ChangeStartupTypeAsync()
 
 ### Phase 4: Business Logic Layer (Not Started)
 - [ ] **Service Manager**
@@ -84,16 +85,17 @@
   - [ ] Observable collection of services
   - [ ] Selected service property
   - [ ] Search/filter text property
-  - [ ] Commands (Refresh, Start, Stop, Restart, Pause, Resume)
+  - [ ] Commands (Refresh, Start, Stop, Restart, Pause, Resume, ChangeStartupType)
   - [ ] LoadServicesAsync() method
   - [ ] Search/filter logic
   - [ ] Auto-refresh timer
+  - [ ] Startup type change handling
 
 ### Phase 6: View Layer (Not Started)
 - [ ] **MainWindow.xaml**
   - [ ] Window chrome and layout
   - [ ] Service list DataGrid
-  - [ ] Details panel
+  - [ ] Details panel with startup type dropdown/ComboBox
   - [ ] Command toolbar
   - [ ] Search/filter controls
   - [ ] Status bar
