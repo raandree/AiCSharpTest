@@ -1,0 +1,219 @@
+<Window x:Class="WindowsServiceManager.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:WindowsServiceManager.Converters"
+        Title="Windows Service Manager" 
+        Height="700" 
+        Width="1200"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <converters:StatusToColorConverter x:Key="StatusToColorConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Admin Warning Banner -->
+        <Border Grid.Row="0" 
+                Background="#FFEB3B" 
+                Padding="10"
+                Visibility="{Binding IsAdministrator, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}">
+            <TextBlock Text="⚠ Not running as administrator. Service operations will be limited." 
+                       FontWeight="Bold"
+                       Foreground="Black"/>
+        </Border>
+        
+        <!-- Toolbar -->
+        <ToolBar Grid.Row="1" Padding="5">
+            <Button Command="{Binding RefreshCommand}" ToolTip="Refresh Services">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🔄" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="Refresh"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button Command="{Binding StartServiceCommand}" ToolTip="Start Service">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="▶" FontSize="16" Margin="0,0,5,0" Foreground="Green"/>
+                    <TextBlock Text="Start"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding StopServiceCommand}" ToolTip="Stop Service">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="⏹" FontSize="16" Margin="0,0,5,0" Foreground="Red"/>
+                    <TextBlock Text="Stop"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding RestartServiceCommand}" ToolTip="Restart Service">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🔁" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="Restart"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button Command="{Binding PauseServiceCommand}" ToolTip="Pause Service">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="⏸" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="Pause"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding ResumeServiceCommand}" ToolTip="Resume Service">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="▶" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="Resume"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <TextBlock Text="Search:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="200"
+                     VerticalContentAlignment="Center"/>
+        </ToolBar>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Services List -->
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding FilteredServices}"
+                      SelectedItem="{Binding SelectedService}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      CanUserSortColumns="True"
+                      GridLinesVisibility="Horizontal"
+                      AlternatingRowBackground="#F5F5F5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Display Name" 
+                                        Binding="{Binding DisplayName}" 
+                                        Width="2*"/>
+                    <DataGridTextColumn Header="Status" 
+                                        Binding="{Binding Status}" 
+                                        Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" 
+                                        Value="{Binding Status, Converter={StaticResource StatusToColorConverter}}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Startup Type" 
+                                        Binding="{Binding StartupType}" 
+                                        Width="*"/>
+                    <DataGridTextColumn Header="Service Name" 
+                                        Binding="{Binding ServiceName}" 
+                                        Width="1.5*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <GridSplitter Grid.Column="1" 
+                          Width="5" 
+                          HorizontalAlignment="Stretch" 
+                          Background="#E0E0E0"/>
+            
+            <!-- Service Details Panel -->
+            <ScrollViewer Grid.Column="2" 
+                          VerticalScrollBarVisibility="Auto"
+                          Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Service Details" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,15"/>
+                    
+                    <StackPanel DataContext="{Binding SelectedService}">
+                        <TextBlock Text="Display Name:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding DisplayName}" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Service Name:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding ServiceName}" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Description:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Description}" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Status:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Status}" 
+                                   Foreground="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Startup Type:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox SelectedItem="{Binding StartupType, Mode=OneWay}"
+                                  SelectionChanged="StartupType_SelectionChanged"
+                                  Margin="0,0,0,10">
+                            <ComboBoxItem Content="Automatic"/>
+                            <ComboBoxItem Content="Manual"/>
+                            <ComboBoxItem Content="Disabled"/>
+                        </ComboBox>
+                        
+                        <TextBlock Text="Can Stop:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding CanStop}" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Can Pause:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding CanPauseAndContinue}" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="System Critical:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding IsSystemCritical}" 
+                                   Foreground="{Binding IsSystemCritical, Converter={StaticResource StatusToColorConverter}}"
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Executable Path:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding ExecutablePath}" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3" Height="25">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Services: "/>
+                    <TextBlock Text="{Binding FilteredServices.Count}"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+        
+        <!-- Loading Overlay -->
+        <Grid Grid.Row="0" 
+              Grid.RowSpan="4"
+              Background="#80000000"
+              Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    Background="White"
+                    Padding="30"
+                    CornerRadius="5">
+                <TextBlock Text="⏳ Loading services..." 
+                           FontSize="18"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
